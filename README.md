@@ -7,11 +7,7 @@ MCEF is a mod and library for adding the Chromium web browser into Minecraft.
 
 MCEF is based on java-cef (Java Chromium Embedded Framework), which is based on CEF (Chromium Embedded Framework), which is based on Chromium. It was originally created by montoyo. It was rewritten and currently maintained by the CinemaMod Group.
 
-MCEF contains a downloader system for downloading the java-cef & CEF binaries required by the Chromium browser. This requires a connection to https://mcef-download.cinemamod.com.
-
-Discussion: https://discord.gg/rNrh5kW8Ty
-
-Current Chromium version: `116.0.5845.190`
+Current Chromium version: `126.0.6478.183`
 
 ## Supported Platforms
 - Windows 10/11 (x86_64, arm64)*
@@ -22,48 +18,21 @@ Current Chromium version: `116.0.5845.190`
 
 **This mod will not work on Android.
 
-## For Players
-This is the source code for MCEF.
-
-Download the mod for Fabric or Forge on either:
-- CurseForge: https://www.curseforge.com/minecraft/mc-mods/mcef
-- Modrinth: https://modrinth.com/mod/mcef
-
 ## For Modders
 MCEF is LGPL, as long as your project doesn't modify or include MCEF source code, you can choose a different license. Read the full license in the LICENSE file in this directory.
 
 ### Using MCEF in Your Project
-```
-repositories {
-    maven {
-        url = uri('https://mcef-download.cinemamod.com/repositories/releases')
-    }
-    // Optional for snapshot versions
-    maven {
-        url = uri('https://mcef-download.cinemamod.com/repositories/snapshots')
-    }
-}
-```
-#### Fabric
-```
-dependencies {
-    modCompileOnly 'com.cinemamod:mcef:2.1.6-1.20.1'
-    modRuntimeOnly 'com.cinemamod:mcef-fabric:2.1.6-1.20.1'
-}
-```
-See the [mcef-fabric-example-mod](https://github.com/CinemaMod/mcef-fabric-example-mod) for a complete example Fabric project.
+Compile It :D
 
-#### NeoForge
-```
-dependencies {
-    compileOnly fg.deobf('com.cinemamod:mcef:2.1.6-1.20.1')
-    runtimeOnly fg.deobf('com.cinemamod:mcef-forge:2.1.6-1.20.1')
-}
-```
 ### Building & Modifying MCEF
-After cloning this repo, you will need to clone the java-cef git submodule. There is a gradle task for this: `./gradlew cloneJcef`.
+After cloning this repo, you'll need to clone the `java-cef` repository (https://github.com/CinemaMod/java-cef/tree/6478) into a separate folder.  
+Build it using Python 3.7.9 (this version is required) and Visual Studio 2022.
 
-To run the Fabric client: `./gradlew fabricClient`
-To run the Forge client: `./gradlew forgeClient`
+To correctly compile `java-cef`, follow the official build guide here:  
+https://bitbucket.org/chromiumembedded/java-cef/wiki/BranchesAndBuilding.md
 
-In-game, there is a demo browser if you press F10 after you're loaded into a world (the demo browser only exists when you're running from a development environment).
+Once compiled, copy the `java` folder from the build output into MCEF's `java-cef` submodule folder — do not use the original git submodule version, use the one you just compiled instead.
+
+Next, update the `download-mirror` to point to your own compiled binaries.
+
+And that’s it! If anything is unclear or you'd like a more detailed explanation, feel free to ask and I’ll be happy to clarify.
