@@ -24,6 +24,13 @@ MCEF is LGPL, as long as your project doesn't modify or include MCEF source code
 ### Using MCEF in Your Project
 Compile It :D
 
+### Minecraft Version Compatibility
+This fork of MCEF is specifically built for **Minecraft 1.20.1**.
+
+If you need support for a different version of Minecraft, you can follow the same modifications made in this repository and simply adjust the Fabric (or NeoForge) version accordingly in your `build.gradle` and mod setup files.
+
+The core integration remains the same — just make sure to align your environment with the target Minecraft version.
+
 ### Building & Modifying MCEF
 After cloning this repo, you'll need to clone the `java-cef` repository (https://github.com/CinemaMod/java-cef/tree/6478) into a separate folder.  
 Build it using Python 3.7.9 (this version is required) and Visual Studio 2022.
