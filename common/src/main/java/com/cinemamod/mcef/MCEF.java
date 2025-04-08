@@ -22,6 +22,7 @@ package com.cinemamod.mcef;
 
 import com.cinemamod.mcef.listeners.MCEFInitListener;
 import net.minecraft.client.Minecraft;
+import org.cef.CefBrowserSettings;
 import org.cef.misc.CefCursorType;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
@@ -135,7 +136,21 @@ public final class MCEF {
      */
     public static MCEFBrowser createBrowser(String url, boolean transparent) {
         assertInitialized();
-        MCEFBrowser browser = new MCEFBrowser(client, url, transparent);
+        MCEFBrowser browser = new MCEFBrowser(client, url, transparent, new CefBrowserSettings());
+        browser.setCloseAllowed();
+        browser.createImmediately();
+        return browser;
+    }
+
+    /**
+     * WITH custom "CefBrowserSettings" Support
+     * Will assert that MCEF has been initialized; throws a {@link RuntimeException} if not.
+     * Creates a new Chromium web browser with some starting URL. Can set it to be transparent rendering.
+     * @return the {@link MCEFBrowser} web browser instance
+     */
+    public static MCEFBrowser createBrowser(String url, boolean transparent, CefBrowserSettings cefBrowserSettings) {
+        assertInitialized();
+        MCEFBrowser browser = new MCEFBrowser(client, url, transparent, cefBrowserSettings);
         browser.setCloseAllowed();
         browser.createImmediately();
         return browser;
@@ -149,7 +164,23 @@ public final class MCEF {
      */
     public static MCEFBrowser createBrowser(String url, boolean transparent, int width, int height) {
         assertInitialized();
-        MCEFBrowser browser = new MCEFBrowser(client, url, transparent);
+        MCEFBrowser browser = new MCEFBrowser(client, url, transparent, new CefBrowserSettings());
+        browser.setCloseAllowed();
+        browser.createImmediately();
+        browser.resize(width, height);
+        return browser;
+    }
+
+    /**
+     * WITH custom "CefBrowserSettings" Support
+     * Will assert that MCEF has been initialized; throws a {@link RuntimeException} if not.
+     * Creates a new Chromium web browser with some starting URL, width, and height.
+     * Can set it to be transparent rendering.
+     * @return the {@link MCEFBrowser} web browser instance
+     */
+    public static MCEFBrowser createBrowser(String url, boolean transparent, int width, int height, CefBrowserSettings cefBrowserSettings) {
+        assertInitialized();
+        MCEFBrowser browser = new MCEFBrowser(client, url, transparent, cefBrowserSettings);
         browser.setCloseAllowed();
         browser.createImmediately();
         browser.resize(width, height);

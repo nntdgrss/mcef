@@ -24,6 +24,7 @@ import com.cinemamod.mcef.listeners.MCEFCursorChangeListener;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import org.cef.CefBrowserSettings;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefBrowserOsr;
 import org.cef.callback.CefDragData;
@@ -83,17 +84,28 @@ public class MCEFBrowser extends CefBrowserOsr {
     protected Rectangle popupSize;
     protected boolean showPopup = false;
     protected boolean popupDrawn = false;
+    protected CefBrowserSettings cefBrowserSettings;
 
-    public MCEFBrowser(MCEFClient client, String url, boolean transparent) {
-        super(client.getHandle(), url, transparent, null);
+    public MCEFBrowser(MCEFClient client, String url, boolean transparent, CefBrowserSettings cefBSettings) {
+        super(client.getHandle(), url, transparent, null, cefBSettings);
+        cefBrowserSettings = cefBSettings;
         renderer = new MCEFRenderer(transparent);
         cursorChangeListener = (cefCursorID) -> setCursor(CefCursorType.fromId(cefCursorID));
+
 
         Minecraft.getInstance().submit(renderer::initialize);
     }
 
+    public CefBrowser getCefBrowser() {
+        return this;
+    }
+
     public MCEFRenderer getRenderer() {
         return renderer;
+    }
+
+    public CefBrowserSettings getCefBrowserSettings() {
+        return cefBrowserSettings;
     }
 
     public MCEFCursorChangeListener getCursorChangeListener() {

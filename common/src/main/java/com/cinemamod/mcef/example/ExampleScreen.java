@@ -32,6 +32,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import org.cef.CefBrowserSettings;
 
 public class ExampleScreen extends Screen {
     private static final int BROWSER_DRAW_OFFSET = 20;
@@ -48,7 +49,9 @@ public class ExampleScreen extends Screen {
         if (browser == null) {
             String url = "https://www.google.com";
             boolean transparent = true;
-            browser = MCEF.createBrowser(url, transparent);
+            CefBrowserSettings cefBrowserSettings = new CefBrowserSettings();
+            cefBrowserSettings.windowless_frame_rate = 60;
+            browser = MCEF.createBrowser(url, transparent, cefBrowserSettings);
             resizeBrowser();
         }
     }
