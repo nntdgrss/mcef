@@ -43,3 +43,24 @@ Once compiled, copy the `java` folder from the build output into MCEF's `java-ce
 Next, update the `download-mirror` to point to your own compiled binaries.
 
 And that’s it! If anything is unclear or you'd like a more detailed explanation, feel free to ask and I’ll be happy to clarify.
+
+### 🖥️ How to Set Browser to 60 FPS
+
+By default, the Chromium browser embedded with MCEF may not run at the maximum frame rate possible.  
+To ensure smooth rendering — especially when using windowless (offscreen) rendering — you can set the frame rate manually to 60 FPS.
+
+There are two main ways to do this:
+
+#### ✅ Option 1: Set the Frame Rate When Creating the Browser
+
+```java
+CefBrowserSettings cefBrowserSettings = new CefBrowserSettings();
+cefBrowserSettings.windowless_frame_rate = 60;
+
+browser = MCEF.createBrowser(
+    browserUrl,     // Your browser URL
+    transparent,    // true or false depending on your needs
+    windowWidth,    // Width of your browser surface
+    windowHeight,   // Height of your browser surface
+    cefBrowserSettings
+);
