@@ -41,12 +41,14 @@ public class MCEFSettings {
     private boolean skipDownload;
     private String downloadMirror;
     private String userAgent;
+    private String cefVersion;
     private boolean useCache;
 
     public MCEFSettings() {
         skipDownload = false;
         downloadMirror = "https://mcef-download.cinemamod.com";
         userAgent = null;
+        cefVersion = null;
         useCache = true;
     }
 
@@ -66,6 +68,14 @@ public class MCEFSettings {
     public void setDownloadMirror(String downloadMirror) {
         this.downloadMirror = downloadMirror;
         saveAsync();
+    }
+
+    public String getCefVersion() {
+        return cefVersion;
+    }
+
+    public void setCefVersion(String version) {
+        cefVersion = version;
     }
 
     public String getUserAgent() {
@@ -109,6 +119,7 @@ public class MCEFSettings {
         properties.setProperty("skip-download", String.valueOf(skipDownload));
         properties.setProperty("download-mirror", String.valueOf(downloadMirror));
         properties.setProperty("user-agent", String.valueOf(userAgent));
+        properties.setProperty("cef-version", String.valueOf(cefVersion));
         properties.setProperty("use-cache", String.valueOf(useCache));
 
         try (FileOutputStream output = new FileOutputStream(file)) {
@@ -133,6 +144,7 @@ public class MCEFSettings {
             skipDownload = Boolean.parseBoolean(properties.getProperty("skip-download"));
             downloadMirror = properties.getProperty("download-mirror");
             userAgent = properties.getProperty("user-agent");
+            cefVersion = properties.getProperty("cef-version");
             useCache = Boolean.parseBoolean(properties.getProperty("use-cache"));
         } catch (Exception e) {
             // Delete and re-create the file if there was a parsing error

@@ -38,8 +38,8 @@ import java.net.URL;
  * Email ds58@mailbox.org for any questions or concerns regarding the file hosting.
  */
 public class MCEFDownloader {
-    private static final String JAVA_CEF_DOWNLOAD_URL = "${host}/java-cef-builds/${java-cef-commit}/${platform}.tar.gz";
-    private static final String JAVA_CEF_CHECKSUM_DOWNLOAD_URL = "${host}/java-cef-builds/${java-cef-commit}/${platform}.tar.gz.sha256";
+    private static final String JAVA_CEF_DOWNLOAD_URL = "${host}/java-cef-builds/${java-cef-version}/${platform}.tar.gz";
+    private static final String JAVA_CEF_CHECKSUM_DOWNLOAD_URL = "${host}/java-cef-builds/${java-cef-version}/${platform}.tar.gz.sha256";
 
     private final String host;
     private final String javaCefCommitHash;
@@ -66,14 +66,19 @@ public class MCEFDownloader {
     private String formatURL(String url) {
         return url
                 .replace("${host}", host)
-                .replace("${java-cef-commit}", javaCefCommitHash)
+                .replace("${java-cef-version}", javaCefCommitHash)
                 .replace("${platform}", platform.getNormalizedName());
     }
 
     public void downloadJavaCefBuild() throws IOException {
         File mcefLibrariesPath = new File(System.getProperty("mcef.libraries.path"));
         MCEFDownloadListener.INSTANCE.setTask("Downloading Chromium Embedded Framework");
-        downloadFile(getJavaCefDownloadUrl(), new File(mcefLibrariesPath, platform.getNormalizedName() + ".tar.gz"));
+
+        File platformFolder = new File(mcefLibrariesPath, platform.getNormalizedName());
+
+        if(!platformFolder.exists()) platformFolder.mkdirs();
+
+        downloadFile(getJavaCefDownloadUrl(), new File(platformFolder, platform.getNormalizedName() + ".tar.gz"));
     }
 
     /**
@@ -147,7 +152,7 @@ public class MCEFDownloader {
             inputStream.close();
             outputStream.close();
         } catch (IOException e) {
-            throw new IOException("Failed to download " + urlString);
+            throw new IOException("Failed to download " + e);
         }
     }
 

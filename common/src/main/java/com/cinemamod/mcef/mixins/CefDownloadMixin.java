@@ -85,9 +85,13 @@ public class CefDownloadMixin {
                 return;
             }
 
-            MCEF.getLogger().info("java-cef commit: " + javaCefCommit);
-
             MCEFSettings settings = MCEF.getSettings();
+
+            String javaCefCustomVersion = settings.getCefVersion();
+            if(javaCefCustomVersion != null && !javaCefCustomVersion.isEmpty()) javaCefCommit = javaCefCustomVersion;
+
+            MCEF.getLogger().info("java-cef version: {}", javaCefCommit);
+
             MCEFDownloader downloader = new MCEFDownloader(settings.getDownloadMirror(), javaCefCommit, MCEFPlatform.getPlatform());
 
             boolean downloadJcefBuild;
