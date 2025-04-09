@@ -64,8 +64,10 @@ browser = MCEF.createBrowser(
     windowHeight,   // Height of your browser surface
     cefBrowserSettings
 );
+```
 
 #### ✅ Option 2: Set the Frame Rate After the Browser Is Created
 
 ```java
 browser.getCefBrowser().setWindowlessFrameRate(60);
+```
