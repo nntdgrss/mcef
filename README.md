@@ -32,7 +32,7 @@ If you need support for a different version of Minecraft, you can follow the sam
 The core integration remains the same — just make sure to align your environment with the target Minecraft version.
 
 ### Building & Modifying MCEF
-After cloning this repo, you'll need to clone the `java-cef` repository (https://github.com/CinemaMod/java-cef/tree/6478 "There’s an issue in one of the header files in this CinemaMod fork, I’ll show how to fix it later.") into a separate folder.  
+After cloning this repo, you'll need to clone the `java-cef` repository (https://github.com/FeelipMar/java-cef) into a separate folder.  
 Build it using Python 3.7.9 (this version is required) and Visual Studio 2022.
 
 To correctly compile `java-cef`, follow the official build guide here:  
